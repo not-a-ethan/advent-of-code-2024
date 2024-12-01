@@ -1012,6 +1012,7 @@ for (let i = 0; i < arrayThing.length; i++) {
 =================
 PART 1
 =================
+*/
 
 columnOne.sort(function(a ,b) {
     return a - b;
@@ -1037,9 +1038,13 @@ for (let i = 0; i < (columnOne.length); i++) {
     }
 }
 
-console.log(total)
-*/
+console.log("Part 2 answer: " + total)
 
+/*
+=================
+PART 2
+=================
+*/
 let similarity = 0;
 
 for (let i = 0; i < columnOne.length; i++) {
@@ -1052,4 +1057,4 @@ for (let i = 0; i < columnOne.length; i++) {
     similarity += (count * currentNum)
 }
 
-console.log(similarity)
+console.log("Part 2 answer: " + similarity)
