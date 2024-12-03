@@ -1000,6 +1000,12 @@ const input = `48 50 51 53 55 56 59 58
 48 46 43 42 40 38
 87 84 83 80 77 76`
 
+
+/*
+=================
+PART 1
+=================
+
 const reports = input.split("\n");
 
 let count = 0;
@@ -1056,3 +1062,86 @@ for (let i = 0; i < reports.length; i++) {
 }
 
 console.log(count);
+*/
+
+/*
+const input = `7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9`;
+*/
+
+function isSafe(report) {
+    let lastVal = report[0]
+    let increasing = false;
+    let decreasing = false;
+
+    if (lastVal > report[1]) {
+        decreasing = true;
+    } else {
+        increasing = true;
+    }
+
+    for (let j = 1; j < report.length; j++) {
+        if (report[j] == lastVal) {
+            return false;
+        } else if (!(Math.abs(report[j] - lastVal) <= 3)) {
+            return false;
+        } else {
+            if (increasing && lastVal > report[j]) {
+                return false
+            } else if (decreasing && lastVal < report[j]) {
+                return false
+            }
+        }
+
+        lastVal = report[j]
+    }
+
+    return true;
+}
+
+const reports = input.split("\n");
+
+let count = 0;
+
+for (let i = 0; i < reports.length; i++) {
+    let badVals = 0;
+
+    const thing = reports[i].split(" ");
+    const values = Object.values(thing);
+
+    if (isSafe(values)) {
+        count++;
+        continue;
+    } else {
+
+        let bad = 0;
+
+        for (let j = 0; j < values.length; j++) {
+            let tempArray = [...values];
+            tempArray = tempArray.splice(i, 1);
+            
+            if (isSafe(tempArray)) {
+                count++;
+                break;
+            } else {
+                bad++;
+            }
+
+            if (bad >= 2) {
+                break;
+            }
+        }
+    }
+}
+
+console.log(count);
+
+/*
+334 PART 1
+
+493 TOO HIGH
+*/
