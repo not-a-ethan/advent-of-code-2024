@@ -7,8 +7,8 @@ This has my solutions to Advent of Code for 2024
 | Day | Part 1 | Part 2 |
 | - | - | - |
 | 1 | ✅ | ✅ |
-| 2 | ❌ | ❌ |
-| 3 | ❌ | ❌ |
+| 2 | ✅ | ✅ |
+| 3 | ✅ | ❌ |
 | 4 | ❌ | ❌ |
 | 5 | ❌ | ❌ |
 | 6 | ❌ | ❌ |
