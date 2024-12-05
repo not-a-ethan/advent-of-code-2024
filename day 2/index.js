@@ -1148,8 +1148,3 @@ for (let i = 0; i < reports.length; i++) {
 }
 
 console.log(count);
-
-/*
-374 TOO LOW
-493 TOO HIGH
-*/
