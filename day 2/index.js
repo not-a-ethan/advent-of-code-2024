@@ -1073,34 +1073,54 @@ const input = `7 6 4 2 1
 1 3 6 7 9`;
 */
 
-function isSafe(report) {
-    let lastVal = report[0]
-    let increasing = false;
-    let decreasing = false;
+function isSafe(values) {
+    let incCount = true;
 
-    if (lastVal > report[1]) {
-        decreasing = true;
-    } else {
-        increasing = true;
-    }
+    const increasingArray = values.slice();
+    increasingArray.sort((a, b) => a - b);
+    const decreasingArray = values.slice();
+    decreasingArray.sort((a, b) => b - a);
+    
+    if (JSON.stringify(values) == JSON.stringify(increasingArray)) {
+        let lastVal = values[0]
+        for (let j = 1; j < values.length; j++) {
+            if (values[j] == lastVal) {
+                incCount = false; 
+                break;
+            }
 
-    for (let j = 1; j < report.length; j++) {
-        if (report[j] == lastVal) {
-            return false;
-        } else if (!(Math.abs(report[j] - lastVal) <= 3)) {
-            return false;
-        } else {
-            if (increasing && lastVal > report[j]) {
-                return false
-            } else if (decreasing && lastVal < report[j]) {
-                return false
+            if ((values[j] - 3) <= lastVal) {
+                lastVal = values[j]
+            } else {
+                incCount = false;
+                break;
             }
         }
+    } else if (JSON.stringify(values) == JSON.stringify(decreasingArray)) {
+        let lastVal = values[values.length - 1]
 
-        lastVal = report[j]
+        for (let j = values.length - 2; j >= 0; j--) {
+            if (values[j] == lastVal) {
+                incCount = false; 
+                break;
+            }
+
+            if ((values[j] - 3) <= lastVal) {
+                lastVal = values[j]
+            } else {
+                incCount = false;
+                break;
+            }
+        }
+    } else {
+        return false;
     }
 
-    return true;
+    if (incCount) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 const reports = input.split("\n");
@@ -1108,8 +1128,6 @@ const reports = input.split("\n");
 let count = 0;
 
 for (let i = 0; i < reports.length; i++) {
-    let badVals = 0;
-
     const thing = reports[i].split(" ");
     const values = Object.values(thing);
 
@@ -1117,21 +1135,12 @@ for (let i = 0; i < reports.length; i++) {
         count++;
         continue;
     } else {
-
-        let bad = 0;
-
         for (let j = 0; j < values.length; j++) {
             let tempArray = [...values];
-            tempArray = tempArray.splice(i, 1);
+            tempArray.splice(j, 1)
             
             if (isSafe(tempArray)) {
                 count++;
-                break;
-            } else {
-                bad++;
-            }
-
-            if (bad >= 2) {
                 break;
             }
         }
@@ -1139,9 +1148,3 @@ for (let i = 0; i < reports.length; i++) {
 }
 
 console.log(count);
-
-/*
-334 PART 1
-
-493 TOO HIGH
-*/
