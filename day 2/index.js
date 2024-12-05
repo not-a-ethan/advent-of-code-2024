@@ -1000,6 +1000,12 @@ const input = `48 50 51 53 55 56 59 58
 48 46 43 42 40 38
 87 84 83 80 77 76`
 
+
+/*
+=================
+PART 1
+=================
+
 const reports = input.split("\n");
 
 let count = 0;
@@ -1056,3 +1062,94 @@ for (let i = 0; i < reports.length; i++) {
 }
 
 console.log(count);
+*/
+
+/*
+const input = `7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9`;
+*/
+
+function isSafe(values) {
+    let incCount = true;
+
+    const increasingArray = values.slice();
+    increasingArray.sort((a, b) => a - b);
+    const decreasingArray = values.slice();
+    decreasingArray.sort((a, b) => b - a);
+    
+    if (JSON.stringify(values) == JSON.stringify(increasingArray)) {
+        let lastVal = values[0]
+        for (let j = 1; j < values.length; j++) {
+            if (values[j] == lastVal) {
+                incCount = false; 
+                break;
+            }
+
+            if ((values[j] - 3) <= lastVal) {
+                lastVal = values[j]
+            } else {
+                incCount = false;
+                break;
+            }
+        }
+    } else if (JSON.stringify(values) == JSON.stringify(decreasingArray)) {
+        let lastVal = values[values.length - 1]
+
+        for (let j = values.length - 2; j >= 0; j--) {
+            if (values[j] == lastVal) {
+                incCount = false; 
+                break;
+            }
+
+            if ((values[j] - 3) <= lastVal) {
+                lastVal = values[j]
+            } else {
+                incCount = false;
+                break;
+            }
+        }
+    } else {
+        return false;
+    }
+
+    if (incCount) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const reports = input.split("\n");
+
+let count = 0;
+
+for (let i = 0; i < reports.length; i++) {
+    const thing = reports[i].split(" ");
+    const values = Object.values(thing);
+
+    if (isSafe(values)) {
+        count++;
+        continue;
+    } else {
+        for (let j = 0; j < values.length; j++) {
+            let tempArray = [...values];
+            tempArray.splice(j, 1)
+            
+            if (isSafe(tempArray)) {
+                count++;
+                break;
+            }
+        }
+    }
+}
+
+console.log(count);
+
+/*
+374 TOO LOW
+493 TOO HIGH
+*/
