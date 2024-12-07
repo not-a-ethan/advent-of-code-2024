@@ -140,7 +140,14 @@ AAASXMASXSMMAMMMXAXMASAMASAMXSSMSMXSAMMAXAAAAAAAASAXSAXMAXXSMXSAMSAXAXXSAMASMSXS
 SXXAMMAXMAMMXMXMASASMSASMSXSAMAMXAMSAMXSSMASMSMMMXSAMXSSMMAXSXSASXMSAMXXMMMAMXXMXXSAMXMMMXXMASMMSMMMMSAMXSMAXMASXSMSSSMXXAMMXASMXAMXSASXSSMS
 `
 
+const lines = input.split("\n");
+
 let count = 0;
+
+/*
+==============
+PART 1
+==============
 
 // Horizontal
 count += (input.match(/XMAS/g) || []).length;
@@ -211,4 +218,25 @@ for (let i = 0; i < (lines.length - 3); i++) {
 }
 
 console.log(count)
+*/
 
+function checkWord(word) {
+    return word === "SAM" || word === "MAS";
+}
+
+for (let i = 0; i < (lines.length - 2); i++) {
+    const one = lines[i];
+    const two = lines[i + 1];
+    const three = lines[i + 2];
+
+    for (let j = 0; j < (one.length - 2); j++) {
+        const first = one[j] + two[j + 1] + three[j + 2];
+        const second = one[j + 2] + two[j + 1] + three[j];
+
+        if (checkWord(first) && checkWord(second)) {
+            count++;
+        }
+    }
+}
+
+console.log(count);
