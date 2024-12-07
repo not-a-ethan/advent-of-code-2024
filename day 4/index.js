@@ -149,11 +149,11 @@ count += (input.match(/SAMX/g) || []).length;
 const lines = input.split("\n");
 
 // Vertical 
-for (let i = 0; i < lines.length; i+= 4) {
-    const one = lines[0];
-    const two = lines[1];
-    const three = lines[2];
-    const four = lines[3];
+for (let i = 0; i < (lines.length - 3); i++) {
+    const one = lines[i];
+    const two = lines[i + 1];
+    const three = lines[i + 2];
+    const four = lines[i + 3];
 
     for (let j = 0; j < one.length; j++) {
         let vertical = "";
@@ -175,7 +175,9 @@ for (let i = 0; i < (lines.length - 3); i++) {
     const three = lines[i + 2];
     const four = lines[i + 3];
 
-    for (let j = 0; j < (one.length - 4); j++) {
+    for (let j = 0; j < (one.length - 3); j++) {
+        //console.log("i is currently:" + i)
+        //console.log("j is currently:" + j)
         let diagnal = "";
         diagnal += one[j];
         diagnal += two[j + 1];
@@ -210,6 +212,3 @@ for (let i = 0; i < (lines.length - 3); i++) {
 
 console.log(count)
 
-// 791 TOO LOW
-// 1001 TOO LOW
-// 2165 TOO LOW
