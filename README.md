@@ -10,7 +10,7 @@ This has my solutions to Advent of Code for 2024
 | 2 | ✅ | ✅ |
 | 3 | ✅ | ✅ |
 | 4 | ✅ | ✅ |
-| 5 | ✅ | ❌ |
+| 5 | ✅ | ✅ |
 | 6 | ❌ | ❌ |
 | 7 | ❌ | ❌ |
 | 8 | ❌ | ❌ |
