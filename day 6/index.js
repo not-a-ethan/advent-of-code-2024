@@ -150,36 +150,36 @@ const heigh = lines.length;
 const width = lines[1].length;
 
 while (true) {
-    lines[location.x][location.y] = "X";
+    lines[location.y][location.x] = "X";
 
     if (direction === 0) {
         if (location.y === 0) {
             break;
         }
 
-        if (lines[location.x][location.y - 1] === "#") {
+        if (lines[location.y - 1][location.x] === "#") {
             direction = 1;
             continue;
         }
 
         location.y = location.y - 1;
     } else if (direction === 1) {
-        if (location.x === width) {
+        if (location.x === width - 1) {
             break;
         }
 
-        if (lines[location.x + 1][location.y] === "#") {
+        if (lines[location.y][location.x + 1] === "#") {
             direction = 2;
             continue;
         }
 
         location.x = location.x + 1;
     } else if (direction === 2) {
-        if (location.y === heigh) {
+        if (location.y === heigh - 1) {
             break;
         }
 
-        if (lines[location.x][location.y + 1] === "#") {
+        if (lines[location.y + 1][location.x] === "#") {
             direction = 3;
             continue;
         }
@@ -190,7 +190,7 @@ while (true) {
             break;
         }
 
-        if (lines[location.x - 1][location.y] === "#") {
+        if (lines[location.y][location.x - 1] === "#") {
             direction = 0;
             continue;
         }
@@ -210,6 +210,3 @@ for (let i = 0; i < lines.length; i++) {
 }
 
 console.log(count);
-
-// 127 TOO LOW
-// 216 TOO LOW
