@@ -849,48 +849,56 @@ const input = `18158404487: 2 3 15 7 4 72 2 61 4 6 7 4
 60627: 19 17 411 26 99
 1941: 5 39 7 808 931`
 
-const lines = input.split("\n")
-const operators = ["+", "*"]
-
+const lines = input.split("\n");
 let count = 0;
 
 for (let i = 0; i < lines.length; i++) {
     const result = lines[i].split(": ")[0];
     const numbers = lines[i].split(": ")[1].split(" ");
-    let total = 0;
 
-    let equations = [];
- 
-    while (equations.length < Math.pow(numbers.length, 2)) {
-        console.log(equations)
-        let thisEquation = '';
+    let operators = 0;
+    let attempts = -1;
 
-        for (let j = 0; j < numbers.length; j++) {
-            const randomElement = operators[Math.floor(Math.random() * operators.length)];
-            if (j == 0 && randomElement == "*") {
-                total = numbers[j]
-            } else {
-                total = eval(total + randomElement + numbers[j])
-            }
-            thisEquation = thisEquation + numbers[j] + randomElement
+    let multTemp = Number(numbers[0]);
+    for (let j = 1; j < numbers.length; j++) {
+        multTemp = multTemp * Number(numbers[j]);
+    }
+
+    if (result == multTemp) {
+        count += Number(result);
+        continue;
+    }
+
+    while (attempts <= Math.pow(2, numbers.length - 1)) {
+        attempts++;
+        let tempTotal = Number(numbers[0]);
+        const symbols = operators.toString(2).split("").map((x) => Number(x) ? "+" : "*");
+
+        while (symbols.length < numbers.length - 1) {
+            symbols.unshift("+");
         }
 
-        thisEquation = thisEquation.substring(0, thisEquation.length - 1)
-
-        if (equations.includes(thisEquation)) {
-            continue;
-        } else {
-            equations.push(thisEquation);
-            
-            if (result == total) {
-                count += thisResult;
+        for (let j = 1; j < numbers.length; j++) {
+            if (symbols[j - 1] === "+") {
+                tempTotal = tempTotal + Number(numbers[j]);
             } else {
-                continue;
+                tempTotal = tempTotal * Number(numbers[j]);
             }
         }
+
+        if (result == tempTotal) {
+            count += Number(result);
+            break;
+        }
+        
+        operators++;
     }
 }
 
 console.log(count);
 
 // 3523304529 TOO LOW
+// 2092732204674 TOO LOW
+// 2816138931165 TOO LOW
+// 2860136005171 INCORRECT
+// 2860135119179 INCORRECT
